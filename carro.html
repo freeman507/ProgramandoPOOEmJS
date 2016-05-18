@@ -1,87 +1,102 @@
-<script type="text/javascript">
+<html>
+	<head>
+		<title>O carro</title>
+
+		<script type="text/javascript">
 	
-	function Carro (nome, modelo) {
+			function Carro (nome, modelo) {
 
-		var nome;
-		var modelo;
-		var ligado;
-		var velocidade;
+				var nome;
+				var modelo;
+				var ligado;
+				var velocidade;
 
-		this.ligado = false;
-		this.nome = nome;
-		this.modelo = modelo;
-		this.velocidade = 0;
-
-		this.getNome = function () {
-			return this.nome;
-		}
-
-		this.getModelo = function () {
-			return this.modelo;
-		}
-
-		this.getLigado = function () {
-			return this.ligado;
-		}
-
-		this.getVelocidade = function() {
-			return this.velocidade;
-		}
-
-		this.setNome = function (nome) {
-			this.nome = nome;
-		}
-
-		this.setModelo = function (modelo) {
-			this.modelo = modelo;
-		}
-
-		this.setLigado = function (ignicao) {
-			this.ligado = ignicao;
-		}
-
-		this.setVelocidade = function (velocidade) {
-			this.velocidade = velocidade;
-		}
-
-		this.ignicao = function() {
-			if(!this.ligado) {
-				this.ligado = true;
-			}
-			else
 				this.ligado = false;
-		}
+				this.nome = nome;
+				this.modelo = modelo;
+				this.velocidade = 0;
 
-		this.acelerar = function() {
-			if(this.ligado && this.velocidade <= 100) {
-				this.velocidade += 5;
+				this.getNome = function () {
+					return this.nome;
+				}
+
+				this.getModelo = function () {
+					return this.modelo;
+				}
+
+				this.getLigado = function () {
+					return this.ligado;
+				}
+
+				this.getVelocidade = function() {
+					return this.velocidade;
+				}
+
+				this.setNome = function (nome) {
+					this.nome = nome;
+				}
+
+				this.setModelo = function (modelo) {
+					this.modelo = modelo;
+				}
+
+				this.setLigado = function (ignicao) {
+					this.ligado = ignicao;
+				}
+
+				this.setVelocidade = function (velocidade) {
+					this.velocidade = velocidade;
+				}
+
+				this.ignicao = function() {
+					if(!this.ligado) {
+						this.ligado = true;
+					}
+					else
+						this.ligado = false;
+				}
+
+				this.acelerar = function() {
+					if(this.ligado && this.velocidade <= 100) {
+						this.velocidade += 5;
+					}
+				}
+
+				this.freiar = function() {
+					if(this.velocidade >= 0)
+						this.velocidade -= 5;
+				}
+
+				this.displayStatus = function() {
+					console.log("Nome do carro: "+this.getNome()+", Modelo: "+this.getModelo());
+					if(this.ligado)
+						console.log("Carro Ligado");
+					else
+						console.log("Carro Desligado");
+					console.log("Velocidadde: " +this.getVelocidade());
+				}
 			}
-		}
 
-		this.freiar = function() {
-			if(this.velocidade >= 0)
-				this.velocidade -= 5;
-		}
+			var carro = new Carro("O carro"," O modelo");
 
-		this.displayStatus = function() {
-			console.log("Nome do carro: "+this.getNome()+", Modelo: "+this.getModelo());
-			if(this.ligado)
-				console.log("Carro Ligado");
-			else
-				console.log("Carro Desligado");
-			console.log("Velocidadde: " +this.getVelocidade());
-		}
-	}
+		</script>
+	</head>
 
-	var carro = new Carro("O carro","O modelo");
-
-	carro.ignicao();
-	carro.displayStatus();
-	carro.acelerar();
-	carro.acelerar();
-	carro.acelerar();
-	carro.displayStatus();
-	carro.freiar();
-	carro.displayStatus();
-
-</script>
+	<body>
+		<center>
+			<table border="1px">
+				<tr>
+					<td>
+						<button id="IgnicaoButtom" type="button" onClick="carro.ignicao();">Ligar</button><br>
+						<button id="AcelearButtom" type="button" onClick="carro.acelerar();">Acelerar</button><br>
+						<button id="FreiarButtom" type="button" onClick="carro.freiar();">Freiar</button><br>
+						<button id="StatusButtom" type="button" onClick="carro.displayStatus();">status</button><br>
+					</td>
+					<td>
+						<img src="images/carro.png">
+					</td>
+				</tr>
+			</table>
+		</center>
+	</body>
+</html>
