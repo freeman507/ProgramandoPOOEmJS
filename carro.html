@@ -5,10 +5,12 @@
 		var nome;
 		var modelo;
 		var ligado;
+		var velocidade;
 
 		this.ligado = false;
 		this.nome = nome;
 		this.modelo = modelo;
+		this.velocidade = 0;
 
 		this.getNome = function () {
 			return this.nome;
@@ -16,6 +18,14 @@
 
 		this.getModelo = function () {
 			return this.modelo;
+		}
+
+		this.getLigado = function () {
+			return this.ligado;
+		}
+
+		this.getVelocidade = function() {
+			return this.velocidade;
 		}
 
 		this.setNome = function (nome) {
@@ -26,24 +36,52 @@
 			this.modelo = modelo;
 		}
 
-		this.ligarCarro = function() {
+		this.setLigado = function (ignicao) {
+			this.ligado = ignicao;
+		}
+
+		this.setVelocidade = function (velocidade) {
+			this.velocidade = velocidade;
+		}
+
+		this.ignicao = function() {
 			if(!this.ligado) {
 				this.ligado = true;
-				console.log("Carro Ligado");
+			}
+			else
+				this.ligado = false;
+		}
+
+		this.acelerar = function() {
+			if(this.ligado && this.velocidade <= 100) {
+				this.velocidade += 5;
 			}
 		}
 
-		this.desligarCarro = function() {
-			if(this.ligado) {
-				this.ligado = false;
+		this.freiar = function() {
+			if(this.velocidade >= 0)
+				this.velocidade -= 5;
+		}
+
+		this.displayStatus = function() {
+			console.log("Nome do carro: "+this.getNome()+", Modelo: "+this.getModelo());
+			if(this.ligado)
+				console.log("Carro Ligado");
+			else
 				console.log("Carro Desligado");
-			}
+			console.log("Velocidadde: " +this.getVelocidade());
 		}
 	}
 
-	var carro = new Carro("O carro","Ford");
+	var carro = new Carro("O carro","O modelo");
 
-	carro.ligarCarro();
-	carro.desligarCarro();
+	carro.ignicao();
+	carro.displayStatus();
+	carro.acelerar();
+	carro.acelerar();
+	carro.acelerar();
+	carro.displayStatus();
+	carro.freiar();
+	carro.displayStatus();
 
 </script>
