@@ -1,0 +1,49 @@
+<script type="text/javascript">
+	
+	function Carro (nome, modelo) {
+
+		var nome;
+		var modelo;
+		var ligado;
+
+		this.ligado = false;
+		this.nome = nome;
+		this.modelo = modelo;
+
+		this.getNome = function () {
+			return this.nome;
+		}
+
+		this.getModelo = function () {
+			return this.modelo;
+		}
+
+		this.setNome = function (nome) {
+			this.nome = nome;
+		}
+
+		this.setModelo = function (modelo) {
+			this.modelo = modelo;
+		}
+
+		this.ligarCarro = function() {
+			if(!this.ligado) {
+				this.ligado = true;
+				console.log("Carro Ligado");
+			}
+		}
+
+		this.desligarCarro = function() {
+			if(this.ligado) {
+				this.ligado = false;
+				console.log("Carro Desligado");
+			}
+		}
+	}
+
+	var carro = new Carro("O carro","Ford");
+
+	carro.ligarCarro();
+	carro.desligarCarro();
+
+</script>
