@@ -63,7 +63,7 @@
 				}
 
 				this.freiar = function() {
-					if(this.velocidade >= 0)
+					if(this.velocidade >= 5)
 						this.velocidade -= 5;
 				}
 
@@ -74,6 +74,7 @@
 					else
 						console.log("Carro Desligado");
 					console.log("Velocidadde: " +this.getVelocidade());
+					console.log("--------------------------------------------------")
 				}
 			}
 
@@ -93,7 +94,7 @@
 						<button id="StatusButtom" type="button" onClick="carro.displayStatus();">status</button><br>
 					</td>
 					<td>
-						<img src="images/carro.png">
+						<img id="ImageView" src="images/carro0.png">
 					</td>
 				</tr>
 			</table>
