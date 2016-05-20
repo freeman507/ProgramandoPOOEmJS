@@ -5,80 +5,115 @@
 		<script type="text/javascript">
 	
 			function Carro (nome, modelo) {
+				var vm = this;
 
 				var nome;
 				var modelo;
-				var ligado;
-				var velocidade;
+				var ligado = false;
+				var velocidade = 0;
+				var timer = {
+					ref: undefined,
+					interval: 1000
+				};
+				var imagens = [
+					'./images/carro0.png',
+					'./images/carro1.png',
+					'./images/carro2.png',
+					'./images/carro3.png'
+				];
+				var imagem = imagens.length-1;
 
-				this.ligado = false;
-				this.nome = nome;
-				this.modelo = modelo;
-				this.velocidade = 0;
-
-				this.getNome = function () {
-					return this.nome;
+				vm.getNome = function () {
+					return nome;
 				}
 
-				this.getModelo = function () {
-					return this.modelo;
+				vm.getModelo = function () {
+					return modelo;
 				}
 
-				this.getLigado = function () {
-					return this.ligado;
+				vm.getLigado = function () {
+					return ligado;
 				}
 
-				this.getVelocidade = function() {
-					return this.velocidade;
+				vm.getVelocidade = function() {
+					return velocidade;
 				}
 
-				this.setNome = function (nome) {
-					this.nome = nome;
+				vm.setNome = function (nome) {
+					nome = nome;
 				}
 
-				this.setModelo = function (modelo) {
-					this.modelo = modelo;
+				vm.setModelo = function (modelo) {
+					modelo = modelo;
 				}
 
-				this.setLigado = function (ignicao) {
-					this.ligado = ignicao;
+				vm.setLigado = function (ignicao) {
+					ligado = ignicao;
 				}
 
-				this.setVelocidade = function (velocidade) {
-					this.velocidade = velocidade;
+				vm.setVelocidade = function (velocidade) {
+					velocidade = velocidade;
 				}
 
-				this.ignicao = function() {
-					if(!this.ligado) {
-						this.ligado = true;
+				vm.ignicao = function() {
+					if(!ligado) {
+						ligado = true;
 					}
 					else
-						this.ligado = false;
+						ligado = false;
 				}
 
-				this.acelerar = function() {
-					if(this.ligado && this.velocidade <= 100) {
-						this.velocidade += 5;
+				vm.acelerar = function() {
+					if(ligado && velocidade <= 100 && timer.interval > 0) {
+						velocidade += 5;
+						timer.interval -= 50;
+						movimento();
 					}
 				}
 
-				this.freiar = function() {
-					if(this.velocidade >= 5)
-						this.velocidade -= 5;
+				vm.freiar = function() {
+					if(velocidade >= 5) {
+						velocidade -= 5;
+						timer.interval += 50;
+						movimento();
+					}
 				}
 
-				this.displayStatus = function() {
-					console.log("Nome do carro: "+this.getNome()+", Modelo: "+this.getModelo());
-					if(this.ligado)
+				vm.displayStatus = function() {
+					console.log("Nome do carro:", nome, "Modelo:", modelo);
+					if(ligado)
 						console.log("Carro Ligado");
 					else
 						console.log("Carro Desligado");
-					console.log("Velocidadde: " +this.getVelocidade());
+					console.log("Velocidadde:", velocidade);
 					console.log("--------------------------------------------------")
 				}
+
+				function movimento() {
+					clearInterval(timer.ref);
+
+					timer.ref = setInterval(function() {
+						console.log(timer.interval);
+						document.getElementById("image-view").src = (imagens[--imagem] || imagens[imagem=imagens.length-1]);
+						if (velocidade === 0) {
+							clearInterval(timer.ref);
+						}
+					}, timer.interval);
+				}
+
+				document.addEventListener("keypress", function(e) {
+					if (e.keyCode === 37) {
+						vm.freiar();
+					} else if (e.keyCode === 39) {
+						vm.acelerar();
+					}
+				});
+
 			}
 
 			var carro = new Carro("O carro"," O modelo");
+
+			console.log(carro);
 
 		</script>
 	</head>
@@ -94,7 +129,7 @@
 						<button id="StatusButtom" type="button" onClick="carro.displayStatus();">status</button><br>
 					</td>
 					<td>
-						<img id="ImageView" src="images/carro0.png">
+						<img id="image-view" src="images/carro0.png">
 					</td>
 				</tr>
 			</table>
